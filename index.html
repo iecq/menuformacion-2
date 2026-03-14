@@ -1,0 +1,852 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menú de Formación Familiar — Colegio APDE El Roble</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Baskerville:ital@0;1&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0a0a;
+    --gold: #F0B429;
+    --gold-light: #FFD166;
+    --gold-dark: #C8941A;
+    --red: #C0392B;
+    --white: #F5F0E8;
+    --gray: #2a2a2a;
+    --gray2: #1a1a1a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Grain overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--gray2);
+    border-bottom: 2px solid var(--gold-dark);
+    padding: 28px 40px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 4px 30px rgba(0,0,0,0.6);
+  }
+
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .logo-shield {
+    width: 52px;
+    height: 60px;
+    flex-shrink: 0;
+  }
+
+  .logo-text {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .logo-text span:first-child {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.65rem;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+  }
+
+  .logo-text span:last-child {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--white);
+    letter-spacing: 0.05em;
+  }
+
+  .header-title {
+    text-align: center;
+    flex: 1;
+  }
+
+  .header-title .script {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 1rem;
+    color: var(--gold-light);
+    display: block;
+    letter-spacing: 0.05em;
+  }
+
+  .header-title .main {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 2rem;
+    color: var(--gold);
+    display: block;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .header-title .sub {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 300;
+    letter-spacing: 0.3em;
+    color: var(--white);
+    opacity: 0.7;
+    text-transform: uppercase;
+    display: block;
+    margin-top: 2px;
+  }
+
+  .red-badge {
+    background: var(--red);
+    color: white;
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 6px 12px;
+    border-radius: 4px;
+    text-align: center;
+    line-height: 1.6;
+  }
+
+  /* TAGLINE */
+  .tagline {
+    text-align: center;
+    padding: 18px 40px;
+    background: var(--gray);
+    border-bottom: 1px solid rgba(240,180,41,0.2);
+  }
+
+  .tagline p {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: 0.82rem;
+    color: rgba(245,240,232,0.7);
+    max-width: 680px;
+    margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* TABS */
+  .tabs-wrapper {
+    padding: 24px 40px 0;
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+    background: var(--black);
+    border-bottom: 1px solid rgba(240,180,41,0.15);
+  }
+
+  .tab-btn {
+    background: transparent;
+    border: 1px solid rgba(240,180,41,0.3);
+    color: rgba(245,240,232,0.6);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 10px 22px;
+    cursor: pointer;
+    border-radius: 3px 3px 0 0;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    position: relative;
+    bottom: -1px;
+  }
+
+  .tab-btn:hover {
+    color: var(--gold);
+    border-color: var(--gold-dark);
+    background: rgba(240,180,41,0.05);
+  }
+
+  .tab-btn.active {
+    background: var(--gold);
+    color: var(--black);
+    border-color: var(--gold);
+    font-weight: 700;
+  }
+
+  .tab-btn .emoji { font-size: 1rem; }
+
+  /* CONTENT */
+  .content {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 50px 30px 60px;
+  }
+
+  .section { display: none; animation: fadeIn 0.4s ease; }
+  .section.active { display: block; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 40px;
+  }
+
+  .section-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(to right, var(--gold-dark), transparent);
+  }
+
+  .section-line.right {
+    background: linear-gradient(to left, var(--gold-dark), transparent);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: 1.6rem;
+    color: var(--gold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  /* MENU ITEM */
+  .menu-item {
+    border: 1px solid rgba(240,180,41,0.12);
+    border-radius: 6px;
+    margin-bottom: 20px;
+    background: rgba(255,255,255,0.02);
+    overflow: hidden;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .menu-item:hover {
+    border-color: rgba(240,180,41,0.35);
+    box-shadow: 0 4px 24px rgba(240,180,41,0.08);
+  }
+
+  .item-header {
+    padding: 20px 24px 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .item-left { flex: 1; }
+
+  .item-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 1.15rem;
+    color: var(--white);
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .item-dots {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    margin-top: 6px;
+  }
+
+  .item-dots-line {
+    flex: 1;
+    border-bottom: 1px dotted rgba(240,180,41,0.4);
+    margin: 0 8px;
+  }
+
+  .item-freq {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    text-transform: uppercase;
+  }
+
+  .item-tagline {
+    font-family: 'Libre Baskerville', serif;
+    font-style: italic;
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.55);
+    margin-top: 6px;
+    line-height: 1.5;
+  }
+
+  .item-toggle {
+    background: rgba(240,180,41,0.1);
+    border: 1px solid rgba(240,180,41,0.3);
+    color: var(--gold);
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 12px;
+    border-radius: 3px;
+    cursor: pointer;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .item-toggle:hover {
+    background: var(--gold);
+    color: var(--black);
+  }
+
+  .item-body {
+    display: none;
+    padding: 0 24px 20px;
+    border-top: 1px solid rgba(240,180,41,0.1);
+    animation: slideDown 0.3s ease;
+  }
+
+  .item-body.open { display: block; }
+
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .item-body p {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.83rem;
+    color: rgba(245,240,232,0.75);
+    line-height: 1.8;
+    margin-top: 14px;
+  }
+
+  .item-body strong {
+    color: var(--gold-light);
+    font-weight: 600;
+  }
+
+  .item-body ul {
+    margin-top: 10px;
+    padding-left: 18px;
+  }
+
+  .item-body ul li {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.8rem;
+    color: rgba(245,240,232,0.65);
+    line-height: 1.9;
+  }
+
+  .item-body ul li::marker { color: var(--gold); }
+
+  .tag {
+    display: inline-block;
+    background: rgba(192,57,43,0.2);
+    border: 1px solid rgba(192,57,43,0.4);
+    color: #e88a80;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 3px;
+    margin-top: 10px;
+    margin-right: 6px;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  /* BEBIDAS special */
+  .bebidas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-top: 10px;
+  }
+
+  .bebida-card {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(240,180,41,0.15);
+    border-radius: 6px;
+    padding: 20px 18px;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .bebida-card:hover {
+    border-color: var(--gold-dark);
+    background: rgba(240,180,41,0.05);
+    transform: translateY(-2px);
+  }
+
+  .bebida-icon { font-size: 2rem; margin-bottom: 10px; }
+
+  .bebida-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--white);
+    margin-bottom: 6px;
+  }
+
+  .bebida-desc {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.72rem;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.6;
+  }
+
+  /* DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 32px 0;
+  }
+
+  .divider-line {
+    flex: 1;
+    height: 1px;
+    background: rgba(240,180,41,0.15);
+  }
+
+  .divider-diamond {
+    width: 6px;
+    height: 6px;
+    background: var(--gold-dark);
+    transform: rotate(45deg);
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--gray2);
+    border-top: 2px solid var(--gold-dark);
+    padding: 28px 40px;
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .footer-card {
+    background: var(--gold);
+    color: var(--black);
+    border-radius: 6px;
+    padding: 12px 28px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 240px;
+    flex: 1;
+    max-width: 320px;
+  }
+
+  .footer-icon { font-size: 1.3rem; flex-shrink: 0; }
+
+  .footer-info { display: flex; flex-direction: column; }
+
+  .footer-label {
+    font-size: 0.6rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    font-family: 'Montserrat', sans-serif;
+  }
+
+  .footer-value {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    line-height: 1.3;
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .header { padding: 16px 20px; flex-wrap: wrap; justify-content: center; }
+    .header-title .main { font-size: 1.4rem; }
+    .tabs-wrapper { padding: 16px 16px 0; gap: 4px; }
+    .tab-btn { padding: 8px 12px; font-size: 0.65rem; }
+    .content { padding: 30px 16px 50px; }
+    .section-title { font-size: 1.2rem; }
+    .item-name { font-size: 1rem; }
+    .footer { padding: 20px 16px; }
+    .red-badge { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <div class="header-logo">
+    <svg class="logo-shield" viewBox="0 0 52 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M26 2L4 10V32C4 44 26 58 26 58C26 58 48 44 48 32V10L26 2Z" fill="#1a3a5c" stroke="#C0392B" stroke-width="2"/>
+      <path d="M26 2L4 10V32H26V2Z" fill="#1a3a5c"/>
+      <path d="M26 2L48 10V32H26V2Z" fill="#c0392b" opacity="0.8"/>
+      <line x1="4" y1="30" x2="48" y2="30" stroke="#F0B429" stroke-width="1.5"/>
+      <text x="26" y="48" text-anchor="middle" fill="white" font-size="7" font-family="Montserrat" font-weight="700">APDE</text>
+    </svg>
+    <div class="logo-text">
+      <span>Colegio</span>
+      <span>APDE El Roble</span>
+    </div>
+  </div>
+
+  <div class="header-title">
+    <span class="script">Nuestro</span>
+    <span class="main">Menú</span>
+    <span class="sub">de Formación Familiar</span>
+  </div>
+
+  <div class="red-badge">
+    RedFamilias<br>2025 · 2026
+  </div>
+</header>
+
+<!-- TAGLINE -->
+<div class="tagline">
+  <p>Un menú donde tú eliges, tú te organizas con otras familias, participas, piensas, concretas y creces. Con la ayuda de la RedFamilias del Colegio APDE El Roble.</p>
+</div>
+
+<!-- TABS -->
+<div class="tabs-wrapper">
+  <button class="tab-btn active" onclick="showTab('entradas', this)">
+    <span class="emoji">📖</span> Entradas
+  </button>
+  <button class="tab-btn" onclick="showTab('platos', this)">
+    <span class="emoji">🍽️</span> Platos Fuertes
+  </button>
+  <button class="tab-btn" onclick="showTab('postres', this)">
+    <span class="emoji">🍮</span> Postres
+  </button>
+  <button class="tab-btn" onclick="showTab('bebidas', this)">
+    <span class="emoji">☕</span> Acompañamientos
+  </button>
+</div>
+
+<!-- CONTENT -->
+<div class="content">
+
+  <!-- ENTRADAS -->
+  <div id="entradas" class="section active">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <h2 class="section-title">📖 Entradas</h2>
+      <div class="section-line right"></div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-header">
+        <div class="item-left">
+          <div class="item-name">Books for Life</div>
+          <div class="item-tagline">"Una biblioteca circulante de libros best seller de formación familiar para viralizar."</div>
+          <div class="item-dots">
+            <div class="item-dots-line"></div>
+            <span class="item-freq">Todo el año</span>
+          </div>
+        </div>
+        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
+      </div>
+      <div class="item-body">
+        <p>Grupos de familias se ayudan para avanzar en la lectura de grandes libros de formación familiar. Una biblioteca circulante donde todos aprendemos y crecemos juntos.</p>
+        <p><strong>Títulos disponibles:</strong></p>
+        <ul>
+          <li>12 estrategias para lidiar con las pantallas</li>
+          <li>El colapso de la autoridad</li>
+          <li>La generación ansiosa</li>
+          <li>La familia imperfecta</li>
+          <li>Héroe — sobre la paternidad</li>
+          <li>Padres fuertes, hijas felices</li>
+          <li>Los 5 lenguajes del amor</li>
+          <li>¡Y mucho más!</li>
+        </ul>
+        <span class="tag">📚 A tu ritmo</span>
+        <span class="tag">Grupos pequeños</span>
+      </div>
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+    <div class="menu-item">
+      <div class="item-header">
+        <div class="item-left">
+          <div class="item-name">Aulas Permanentes DAIP</div>
+          <div class="item-tagline">"La entrada perfecta para abrir horizontes de formación según el programa DAIP."</div>
+          <div class="item-dots">
+            <div class="item-dots-line"></div>
+            <span class="item-freq">Marzo · Mayo · Agosto</span>
+          </div>
+        </div>
+        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
+      </div>
+      <div class="item-body">
+        <p>Talleres y charlas impartidas por profesores específicos, dirigidos a grupos de grados (Primaria baja, alta, Secundaria, Bachillerato).</p>
+        <p><strong>Horarios:</strong> Matutino 7:00 hrs · Vespertino 18:00 hrs</p>
+        <p><strong>Temas principales:</strong></p>
+        <ul>
+          <li>Virtudes</li>
+          <li>Temas de actualidad</li>
+          <li>Prioridades formativas</li>
+        </ul>
+        <span class="tag">3 veces al año</span>
+        <span class="tag">Por grados</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PLATOS FUERTES -->
+  <div id="platos" class="section">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <h2 class="section-title">🍽️ Platos Fuertes</h2>
+      <div class="section-line right"></div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-header">
+        <div class="item-left">
+          <div class="item-name">Cursos de ICEF</div>
+          <div class="item-tagline">"La actividad que más llena. Herramientas reales con metodología del caso en grupos pequeños."</div>
+          <div class="item-dots">
+            <div class="item-dots-line"></div>
+            <span class="item-freq">Marzo a Julio</span>
+          </div>
+        </div>
+        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
+      </div>
+      <div class="item-body">
+        <p>De la mano de la organización mundial de formación familiar <strong>IFFD</strong>, una serie de cursos que se desarrollan a lo largo de varios meses usando la metodología del caso en grupos pequeños de familias. Formación 100% práctica.</p>
+        <p><strong>Cursos 2026:</strong></p>
+        <ul>
+          <li>Mejora de la relación matrimonial</li>
+          <li>Afectividad y sexualidad en la pubertad</li>
+          <li>Acompañamiento a los adolescentes</li>
+        </ul>
+        <span class="tag">Varios meses</span>
+        <span class="tag">Grupos pequeños</span>
+        <span class="tag">100% práctico</span>
+      </div>
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+    <div class="menu-item">
+      <div class="item-header">
+        <div class="item-left">
+          <div class="item-name">Inspirando Familias & Family Fest</div>
+          <div class="item-tagline">"Conferencias, talleres, juegos y actividades en familia. ¡No te lo puedes perder!"</div>
+          <div class="item-dots">
+            <div class="item-dots-line"></div>
+            <span class="item-freq">Agosto</span>
+          </div>
+        </div>
+        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
+      </div>
+      <div class="item-body">
+        <p>Unos días de conferencias y talleres, juegos y actividades en familia. Expertos que te llenarán de entusiasmo, motivación e ideas para seguir trabajando para el bien de tu familia y de todas las familias de Guatemala.</p>
+        <span class="tag">Evento anual</span>
+        <span class="tag">Toda la familia</span>
+      </div>
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+    <div class="menu-item">
+      <div class="item-header">
+        <div class="item-left">
+          <div class="item-name">Be Intentional</div>
+          <div class="item-tagline">"Acompañamiento constante a la paternidad y maternidad. Claridad y asertividad para el día a día."</div>
+          <div class="item-dots">
+            <div class="item-dots-line"></div>
+            <span class="item-freq">Todo el año</span>
+          </div>
+        </div>
+        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
+      </div>
+      <div class="item-body">
+        <p>Curso de acompañamiento a la paternidad y la maternidad a cargo de la <strong>Lic. Clarita de Rodríguez</strong> y el equipo de formación del Colegio.</p>
+        <p>Una actividad constante que provee muchas herramientas para el día a día, con claridad y asertividad.</p>
+        <span class="tag">Actividad constante</span>
+        <span class="tag">Herramientas prácticas</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- POSTRES -->
+  <div id="postres" class="section">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <h2 class="section-title">🍮 Postres</h2>
+      <div class="section-line right"></div>
+    </div>
+
+    <div class="menu-item">
+      <div class="item-header">
+        <div class="item-left">
+          <div class="item-name">Padre DAIP / Mom DAIP</div>
+          <div class="item-tagline">"Convivencias específicas orientadas al programa DAIP, organizadas por grados."</div>
+          <div class="item-dots">
+            <div class="item-dots-line"></div>
+            <span class="item-freq">Según calendario</span>
+          </div>
+        </div>
+        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
+      </div>
+      <div class="item-body">
+        <p>Convivencias específicas orientadas a temas de formación del programa DAIP. Se realizarán en algunos grados, según la organización de nuestra RedFamilias.</p>
+        <span class="tag">Por grados</span>
+        <span class="tag">RedFamilias</span>
+      </div>
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+    <div class="menu-item">
+      <div class="item-header">
+        <div class="item-left">
+          <div class="item-name">Retiros Mensuales</div>
+          <div class="item-tagline">"Un momento para parar, pensar y rezar."</div>
+          <div class="item-dots">
+            <div class="item-dots-line"></div>
+            <span class="item-freq">1 vez al mes</span>
+          </div>
+        </div>
+        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
+      </div>
+      <div class="item-body">
+        <p>Evento recurrente para colaboradores y/o padres en varias sedes. Un espacio para pausar el ritmo acelerado del día a día y reconectar con lo que más importa.</p>
+        <span class="tag">Mensual</span>
+        <span class="tag">Varias sedes</span>
+      </div>
+    </div>
+
+    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
+
+    <div class="menu-item">
+      <div class="item-header">
+        <div class="item-left">
+          <div class="item-name">Papá a todo dar / Mamá a todo dar</div>
+          <div class="item-tagline">"Con invitados internacionales. ¡Convivencias sumamente refrescantes!"</div>
+          <div class="item-dots">
+            <div class="item-dots-line"></div>
+            <span class="item-freq">Anual</span>
+          </div>
+        </div>
+        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
+      </div>
+      <div class="item-body">
+        <p>Convivencias que se realizan cada año con invitados internacionales para promover una sana y responsable paternidad y maternidad. Temas 100% actuales y necesarios.</p>
+        <span class="tag">Invitados internacionales</span>
+        <span class="tag">Anual</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ACOMPAÑAMIENTOS / BEBIDAS -->
+  <div id="bebidas" class="section">
+    <div class="section-header">
+      <div class="section-line"></div>
+      <h2 class="section-title">☕ Acompañamientos</h2>
+      <div class="section-line right"></div>
+    </div>
+
+    <div class="bebidas-grid">
+      <div class="bebida-card">
+        <div class="bebida-icon">🎧</div>
+        <div class="bebida-name">Podcast<br>"Sé fuerte, sé Roble"</div>
+        <div class="bebida-desc">Todas las intervenciones grabadas para escuchar donde quieras. ¡Ideal para el tráfico!</div>
+      </div>
+      <div class="bebida-card">
+        <div class="bebida-icon">📚</div>
+        <div class="bebida-name">Grupos de Lectura</div>
+        <div class="bebida-desc">Familias que avanzan juntas en los libros del menú de formación.</div>
+      </div>
+      <div class="bebida-card">
+        <div class="bebida-icon">⛪</div>
+        <div class="bebida-name">Misa de Primeros Viernes</div>
+        <div class="bebida-desc">Un momento de encuentro espiritual mensual para toda la comunidad.</div>
+      </div>
+      <div class="bebida-card">
+        <div class="bebida-icon">💬</div>
+        <div class="bebida-name">Charlas Breves</div>
+        <div class="bebida-desc">Pequeñas dosis de formación para el día a día familiar.</div>
+      </div>
+      <div class="bebida-card">
+        <div class="bebida-icon">🤝</div>
+        <div class="bebida-name">Convivencias RedFamilias</div>
+        <div class="bebida-desc">Familias que sirven, crecen y se acompañan mutuamente.</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-card">
+    <div class="footer-icon">🌐</div>
+    <div class="footer-info">
+      <span class="footer-label">Sitio web</span>
+      <span class="footer-value">www.ceroble.edu.gt</span>
+    </div>
+  </div>
+  <div class="footer-card">
+    <div class="footer-icon">📍</div>
+    <div class="footer-info">
+      <span class="footer-label">Visítanos</span>
+      <span class="footer-value">11 Avenida sur final zona 11</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function showTab(id, btn) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function toggleItem(btn) {
+    const body = btn.closest('.menu-item').querySelector('.item-body');
+    const isOpen = body.classList.contains('open');
+    body.classList.toggle('open');
+    btn.textContent = isOpen ? 'Ver más →' : 'Ver menos ↑';
+  }
+</script>
+</body>
+</html>

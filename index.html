@@ -1,852 +1,1223 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Menú de Formación Familiar — Colegio APDE El Roble</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=Libre+Baskerville:ital@0;1&family=Montserrat:wght@300;400;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --black: #0a0a0a;
-    --gold: #F0B429;
-    --gold-light: #FFD166;
-    --gold-dark: #C8941A;
-    --red: #C0392B;
-    --white: #F5F0E8;
-    --gray: #2a2a2a;
-    --gray2: #1a1a1a;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--black);
-    color: var(--white);
-    font-family: 'Montserrat', sans-serif;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* Grain overlay */
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 1000;
-    opacity: 0.4;
-  }
-
-  /* HEADER */
-  .header {
-    background: var(--gray2);
-    border-bottom: 2px solid var(--gold-dark);
-    padding: 28px 40px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    box-shadow: 0 4px 30px rgba(0,0,0,0.6);
-  }
-
-  .header-logo {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-  }
-
-  .logo-shield {
-    width: 52px;
-    height: 60px;
-    flex-shrink: 0;
-  }
-
-  .logo-text {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .logo-text span:first-child {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    color: var(--gold);
-    text-transform: uppercase;
-  }
-
-  .logo-text span:last-child {
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: 1.1rem;
-    color: var(--white);
-    letter-spacing: 0.05em;
-  }
-
-  .header-title {
-    text-align: center;
-    flex: 1;
-  }
-
-  .header-title .script {
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--gold-light);
-    display: block;
-    letter-spacing: 0.05em;
-  }
-
-  .header-title .main {
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: 2rem;
-    color: var(--gold);
-    display: block;
-    line-height: 1;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-
-  .header-title .sub {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.6rem;
-    font-weight: 300;
-    letter-spacing: 0.3em;
-    color: var(--white);
-    opacity: 0.7;
-    text-transform: uppercase;
-    display: block;
-    margin-top: 2px;
-  }
-
-  .red-badge {
-    background: var(--red);
-    color: white;
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 6px 12px;
-    border-radius: 4px;
-    text-align: center;
-    line-height: 1.6;
-  }
-
-  /* TAGLINE */
-  .tagline {
-    text-align: center;
-    padding: 18px 40px;
-    background: var(--gray);
-    border-bottom: 1px solid rgba(240,180,41,0.2);
-  }
-
-  .tagline p {
-    font-family: 'Libre Baskerville', serif;
-    font-style: italic;
-    font-size: 0.82rem;
-    color: rgba(245,240,232,0.7);
-    max-width: 680px;
-    margin: 0 auto;
-    line-height: 1.7;
-  }
-
-  /* TABS */
-  .tabs-wrapper {
-    padding: 24px 40px 0;
-    display: flex;
-    gap: 6px;
-    justify-content: center;
-    flex-wrap: wrap;
-    background: var(--black);
-    border-bottom: 1px solid rgba(240,180,41,0.15);
-  }
-
-  .tab-btn {
-    background: transparent;
-    border: 1px solid rgba(240,180,41,0.3);
-    color: rgba(245,240,232,0.6);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 600;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    padding: 10px 22px;
-    cursor: pointer;
-    border-radius: 3px 3px 0 0;
-    transition: all 0.3s ease;
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    position: relative;
-    bottom: -1px;
-  }
-
-  .tab-btn:hover {
-    color: var(--gold);
-    border-color: var(--gold-dark);
-    background: rgba(240,180,41,0.05);
-  }
-
-  .tab-btn.active {
-    background: var(--gold);
-    color: var(--black);
-    border-color: var(--gold);
-    font-weight: 700;
-  }
-
-  .tab-btn .emoji { font-size: 1rem; }
-
-  /* CONTENT */
-  .content {
-    max-width: 860px;
-    margin: 0 auto;
-    padding: 50px 30px 60px;
-  }
-
-  .section { display: none; animation: fadeIn 0.4s ease; }
-  .section.active { display: block; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(12px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .section-header {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 40px;
-  }
-
-  .section-line {
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(to right, var(--gold-dark), transparent);
-  }
-
-  .section-line.right {
-    background: linear-gradient(to left, var(--gold-dark), transparent);
-  }
-
-  .section-title {
-    font-family: 'Playfair Display', serif;
-    font-weight: 900;
-    font-size: 1.6rem;
-    color: var(--gold);
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  /* MENU ITEM */
-  .menu-item {
-    border: 1px solid rgba(240,180,41,0.12);
-    border-radius: 6px;
-    margin-bottom: 20px;
-    background: rgba(255,255,255,0.02);
-    overflow: hidden;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  .menu-item:hover {
-    border-color: rgba(240,180,41,0.35);
-    box-shadow: 0 4px 24px rgba(240,180,41,0.08);
-  }
-
-  .item-header {
-    padding: 20px 24px 16px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .item-left { flex: 1; }
-
-  .item-name {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 1.15rem;
-    color: var(--white);
-    margin-bottom: 4px;
-    line-height: 1.3;
-  }
-
-  .item-dots {
-    display: flex;
-    align-items: center;
-    gap: 0;
-    margin-top: 6px;
-  }
-
-  .item-dots-line {
-    flex: 1;
-    border-bottom: 1px dotted rgba(240,180,41,0.4);
-    margin: 0 8px;
-  }
-
-  .item-freq {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.72rem;
-    font-weight: 600;
-    color: var(--gold);
-    letter-spacing: 0.08em;
-    white-space: nowrap;
-    text-transform: uppercase;
-  }
-
-  .item-tagline {
-    font-family: 'Libre Baskerville', serif;
-    font-style: italic;
-    font-size: 0.8rem;
-    color: rgba(245,240,232,0.55);
-    margin-top: 6px;
-    line-height: 1.5;
-  }
-
-  .item-toggle {
-    background: rgba(240,180,41,0.1);
-    border: 1px solid rgba(240,180,41,0.3);
-    color: var(--gold);
-    font-size: 0.65rem;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    padding: 5px 12px;
-    border-radius: 3px;
-    cursor: pointer;
-    white-space: nowrap;
-    flex-shrink: 0;
-    transition: all 0.2s ease;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .item-toggle:hover {
-    background: var(--gold);
-    color: var(--black);
-  }
-
-  .item-body {
-    display: none;
-    padding: 0 24px 20px;
-    border-top: 1px solid rgba(240,180,41,0.1);
-    animation: slideDown 0.3s ease;
-  }
-
-  .item-body.open { display: block; }
-
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .item-body p {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.83rem;
-    color: rgba(245,240,232,0.75);
-    line-height: 1.8;
-    margin-top: 14px;
-  }
-
-  .item-body strong {
-    color: var(--gold-light);
-    font-weight: 600;
-  }
-
-  .item-body ul {
-    margin-top: 10px;
-    padding-left: 18px;
-  }
-
-  .item-body ul li {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.8rem;
-    color: rgba(245,240,232,0.65);
-    line-height: 1.9;
-  }
-
-  .item-body ul li::marker { color: var(--gold); }
-
-  .tag {
-    display: inline-block;
-    background: rgba(192,57,43,0.2);
-    border: 1px solid rgba(192,57,43,0.4);
-    color: #e88a80;
-    font-size: 0.62rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    padding: 3px 9px;
-    border-radius: 3px;
-    margin-top: 10px;
-    margin-right: 6px;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  /* BEBIDAS special */
-  .bebidas-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 16px;
-    margin-top: 10px;
-  }
-
-  .bebida-card {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(240,180,41,0.15);
-    border-radius: 6px;
-    padding: 20px 18px;
-    text-align: center;
-    transition: all 0.3s ease;
-  }
-
-  .bebida-card:hover {
-    border-color: var(--gold-dark);
-    background: rgba(240,180,41,0.05);
-    transform: translateY(-2px);
-  }
-
-  .bebida-icon { font-size: 2rem; margin-bottom: 10px; }
-
-  .bebida-name {
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 0.95rem;
-    color: var(--white);
-    margin-bottom: 6px;
-  }
-
-  .bebida-desc {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.72rem;
-    color: rgba(245,240,232,0.55);
-    line-height: 1.6;
-  }
-
-  /* DIVIDER */
-  .divider {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin: 32px 0;
-  }
-
-  .divider-line {
-    flex: 1;
-    height: 1px;
-    background: rgba(240,180,41,0.15);
-  }
-
-  .divider-diamond {
-    width: 6px;
-    height: 6px;
-    background: var(--gold-dark);
-    transform: rotate(45deg);
-  }
-
-  /* FOOTER */
-  .footer {
-    background: var(--gray2);
-    border-top: 2px solid var(--gold-dark);
-    padding: 28px 40px;
-    display: flex;
-    gap: 16px;
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-
-  .footer-card {
-    background: var(--gold);
-    color: var(--black);
-    border-radius: 6px;
-    padding: 12px 28px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    min-width: 240px;
-    flex: 1;
-    max-width: 320px;
-  }
-
-  .footer-icon { font-size: 1.3rem; flex-shrink: 0; }
-
-  .footer-info { display: flex; flex-direction: column; }
-
-  .footer-label {
-    font-size: 0.6rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    opacity: 0.7;
-    font-family: 'Montserrat', sans-serif;
-  }
-
-  .footer-value {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 700;
-    font-size: 0.85rem;
-    line-height: 1.3;
-  }
-
-  /* RESPONSIVE */
-  @media (max-width: 600px) {
-    .header { padding: 16px 20px; flex-wrap: wrap; justify-content: center; }
-    .header-title .main { font-size: 1.4rem; }
-    .tabs-wrapper { padding: 16px 16px 0; gap: 4px; }
-    .tab-btn { padding: 8px 12px; font-size: 0.65rem; }
-    .content { padding: 30px 16px 50px; }
-    .section-title { font-size: 1.2rem; }
-    .item-name { font-size: 1rem; }
-    .footer { padding: 20px 16px; }
-    .red-badge { display: none; }
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Menú de Formación Familiar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600;700&family=Montserrat:wght@400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-black: #0d0d0d;
+            --hero-dark: #3a0808;
+            --hero-mid: #1a0404;
+            --gold-main: #C9933A;
+            --gold-light: #F5CC7A;
+            --text-cream: #F5F0E8;
+            --btn-red: #7a1515;
+            --btn-green: #2d7a15;
+            --gray-dark: #333333;
+            --font-script: 'Dancing Script', cursive;
+            --font-sans: 'Montserrat', sans-serif;
+            --font-serif: 'Playfair Display', serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background-color: #000;
+            color: var(--text-cream);
+            font-family: var(--font-sans);
+            display: flex;
+            justify-content: center;
+        }
+
+        #app {
+            width: 100%;
+            max-width: 480px;
+            background-color: var(--bg-black);
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+            padding-bottom: 80px;
+        }
+
+        /* HERO HEADER */
+        .hero {
+            background: linear-gradient(to bottom, var(--hero-dark), var(--hero-mid), var(--bg-black));
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .food-emojis-bg {
+            position: absolute;
+            top: 5px;
+            left: 0;
+            width: 100%;
+            font-size: 24px;
+            opacity: 0.15;
+            pointer-events: none;
+            letter-spacing: 15px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+            margin-bottom: 15px;
+        }
+
+        .logo-svg {
+            width: 40px;
+            height: 50px;
+        }
+
+        .logo-text {
+            text-align: left;
+            font-size: 14px;
+            line-height: 1.2;
+            color: var(--text-cream);
+            letter-spacing: 1px;
+        }
+
+        .hero-title {
+            font-family: var(--font-script);
+            font-size: 32px;
+            color: var(--gold-light);
+            margin: 10px 0;
+        }
+
+        .hero-title span {
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 28px;
+            color: var(--gold-main);
+            text-shadow: 0 0 10px rgba(201, 147, 58, 0.4);
+            letter-spacing: 2px;
+        }
+
+        .hero-subtitle {
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        /* PROGRESS BAR */
+        .progress-sticky {
+            position: sticky;
+            top: 0;
+            background-color: rgba(13, 13, 13, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 100;
+            padding: 15px 20px;
+            border-bottom: 1px solid rgba(201, 147, 58, 0.2);
+        }
+
+        .progress-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .progress-line {
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background-color: var(--gray-dark);
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .progress-line-fill {
+            height: 100%;
+            background-color: var(--gold-main);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .step-indicator {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+        }
+
+        .step-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background-color: var(--gray-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .step-label {
+            font-size: 10px;
+            color: #888;
+            transition: color 0.3s;
+        }
+
+        .step-indicator.active .step-circle {
+            background-color: var(--gold-main);
+            color: #000;
+            box-shadow: 0 0 10px rgba(201, 147, 58, 0.6);
+        }
+
+        .step-indicator.active .step-label {
+            color: var(--gold-light);
+            font-weight: bold;
+        }
+
+        .step-indicator.completed .step-circle {
+            background-color: var(--hero-dark);
+            border-color: var(--gold-main);
+            color: var(--text-cream);
+        }
+
+        /* CONTENT SECTIONS */
+        .step-content {
+            display: none;
+            padding: 20px;
+            animation: fadeUp 0.4s ease forwards;
+            position: relative;
+        }
+
+        .step-content.active {
+            display: block;
+        }
+
+        .vertical-text {
+            position: absolute;
+            left: 5px;
+            top: 80px;
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-size: 40px;
+            color: rgba(255, 255, 255, 0.03);
+            letter-spacing: 5px;
+            pointer-events: none;
+        }
+
+        .section-header {
+            text-align: center;
+            font-family: var(--font-serif);
+            font-size: 20px;
+            color: var(--gold-light);
+            margin-bottom: 25px;
+            letter-spacing: 2px;
+        }
+
+        /* MENU ITEMS */
+        .menu-item {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            position: relative;
+            transition: background-color 0.3s;
+            padding: 10px;
+            border-radius: 12px;
+        }
+
+        .menu-item.in-cart {
+            background-color: rgba(201, 147, 58, 0.05);
+            border: 1px solid rgba(201, 147, 58, 0.2);
+            animation: pulse-gold 0.5s ease;
+        }
+
+        .item-photo {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            border: 2px solid var(--gold-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 35px;
+            background: #1a1a1a;
+            flex-shrink: 0;
+        }
+
+        .item-details {
+            flex-grow: 1;
+        }
+
+        .item-header {
+            display: flex;
+            align-items: baseline;
+            margin-bottom: 5px;
+        }
+
+        .item-name {
+            font-weight: 700;
+            font-size: 15px;
+            color: var(--text-cream);
+        }
+
+        .dotted-line {
+            flex-grow: 1;
+            border-bottom: 2px dotted #555;
+            margin: 0 10px;
+            position: relative;
+            top: -4px;
+        }
+
+        .item-freq {
+            font-size: 12px;
+            color: var(--gold-main);
+            white-space: nowrap;
+        }
+
+        .item-desc {
+            font-size: 13px;
+            color: #ccc;
+            line-height: 1.4;
+            margin-bottom: 10px;
+        }
+
+        .item-expand {
+            font-size: 12px;
+            color: var(--gold-light);
+            text-decoration: underline;
+            cursor: pointer;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        .item-extra-info {
+            display: none;
+            font-size: 12px;
+            color: #aaa;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border-left: 2px solid var(--gold-main);
+        }
+
+        .item-extra-info.visible {
+            display: block;
+            animation: fadeUp 0.3s ease;
+        }
+
+        .btn-add {
+            background-color: var(--btn-red);
+            border: 1px solid var(--gold-main);
+            color: var(--text-cream);
+            border-radius: 20px;
+            padding: 6px 15px;
+            font-size: 12px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-add .icon {
+            background: var(--gold-main);
+            color: #000;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .btn-add.added {
+            background-color: var(--btn-green);
+        }
+
+        .btn-add.added .icon {
+            background: #fff;
+            color: var(--btn-green);
+        }
+
+        .divider {
+            text-align: center;
+            color: var(--gold-main);
+            font-size: 10px;
+            margin: 20px 0;
+            opacity: 0.5;
+        }
+
+        /* GRID ACOMPAÑAMIENTOS */
+        .grid-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .grid-card {
+            background: #1a1a1a;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .grid-card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .grid-card.in-cart {
+            border-color: var(--gold-main);
+            background: rgba(201, 147, 58, 0.1);
+        }
+
+        .grid-emoji {
+            font-size: 30px;
+            margin-bottom: 10px;
+        }
+
+        .grid-title {
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        .grid-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--btn-red);
+            border: 1px solid var(--gold-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+            transition: all 0.3s;
+        }
+
+        .grid-card.in-cart .grid-badge {
+            background: var(--btn-green);
+        }
+
+        /* NAVIGATION BUTTONS */
+        .nav-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 40px;
+            align-items: center;
+        }
+
+        .btn-primary {
+            background-color: var(--btn-red);
+            border: 1px solid var(--gold-main);
+            color: var(--text-cream);
+            padding: 12px 24px;
+            border-radius: 25px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            font-family: var(--font-sans);
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            border: 1px solid #555;
+            color: #ccc;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-size: 14px;
+            cursor: pointer;
+            width: 100%;
+            font-family: var(--font-sans);
+        }
+
+        .btn-skip {
+            color: #888;
+            font-size: 13px;
+            text-decoration: underline;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-family: var(--font-sans);
+        }
+
+        .btn-checkout {
+            background-color: var(--btn-green);
+            border: 1px solid var(--gold-light);
+        }
+
+        /* FOOTER */
+        .footer-cards {
+            display: flex;
+            gap: 10px;
+            margin-top: 40px;
+        }
+
+        .footer-card {
+            flex: 1;
+            background: linear-gradient(135deg, #2a1f0c, #1a1305);
+            border: 1px solid var(--gold-main);
+            border-radius: 8px;
+            padding: 15px 10px;
+            text-align: center;
+            font-size: 11px;
+            color: var(--gold-light);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .footer-card span {
+            font-size: 18px;
+        }
+
+        /* FLOATING BAR */
+        .floating-bar {
+            position: fixed;
+            bottom: -100px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 440px;
+            background: linear-gradient(to right, var(--gold-main), var(--gold-light));
+            padding: 15px 20px;
+            border-radius: 30px 30px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 -5px 15px rgba(0,0,0,0.5);
+            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 1000;
+            cursor: pointer;
+        }
+
+        .floating-bar.visible {
+            bottom: 0;
+        }
+
+        .floating-text {
+            color: #000;
+            font-weight: 700;
+            font-size: 16px;
+        }
+
+        .floating-badge {
+            background: #000;
+            color: var(--gold-light);
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        /* MODAL */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: var(--bg-black);
+            width: 100%;
+            max-width: 480px;
+            border-radius: 25px 25px 0 0;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1);
+            border-top: 2px solid var(--gold-main);
+            max-height: 85vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: translateY(0);
+        }
+
+        .modal-handle {
+            width: 40px;
+            height: 4px;
+            background: #555;
+            border-radius: 2px;
+            margin: 0 auto 20px;
+        }
+
+        .modal-title {
+            font-family: var(--font-serif);
+            font-size: 22px;
+            color: var(--gold-light);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .cart-list {
+            margin-bottom: 25px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px 0;
+            border-bottom: 1px solid #333;
+        }
+
+        .cart-item-emoji {
+            width: 40px;
+            height: 40px;
+            background: rgba(201, 147, 58, 0.1);
+            border: 1px solid var(--gold-main);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+        }
+
+        .cart-item-info {
+            flex-grow: 1;
+        }
+
+        .cart-item-name {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .cart-item-cat {
+            font-size: 11px;
+            color: var(--gold-main);
+        }
+
+        .cart-item-remove {
+            color: #ff4d4d;
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 12px;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: #1a1a1a;
+            border: 1px solid #444;
+            color: #fff;
+            padding: 12px;
+            border-radius: 8px;
+            font-family: var(--font-sans);
+            font-size: 14px;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--gold-main);
+        }
+
+        .btn-submit {
+            background: linear-gradient(to right, var(--gold-main), var(--gold-light));
+            color: #000;
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* SUCCESS VIEW */
+        #success-view {
+            display: none;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        #success-view h2 {
+            color: var(--gold-light);
+            margin: 15px 0;
+            font-family: var(--font-serif);
+        }
+
+        #success-view p {
+            color: #ccc;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 25px;
+        }
+
+        .icon-success {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+
+        /* ANIMATIONS */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes pulse-gold {
+            0% { box-shadow: 0 0 0 0 rgba(201, 147, 58, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(201, 147, 58, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(201, 147, 58, 0); }
+        }
+    </style>
 </head>
 <body>
 
-<!-- HEADER -->
-<header class="header">
-  <div class="header-logo">
-    <svg class="logo-shield" viewBox="0 0 52 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M26 2L4 10V32C4 44 26 58 26 58C26 58 48 44 48 32V10L26 2Z" fill="#1a3a5c" stroke="#C0392B" stroke-width="2"/>
-      <path d="M26 2L4 10V32H26V2Z" fill="#1a3a5c"/>
-      <path d="M26 2L48 10V32H26V2Z" fill="#c0392b" opacity="0.8"/>
-      <line x1="4" y1="30" x2="48" y2="30" stroke="#F0B429" stroke-width="1.5"/>
-      <text x="26" y="48" text-anchor="middle" fill="white" font-size="7" font-family="Montserrat" font-weight="700">APDE</text>
-    </svg>
-    <div class="logo-text">
-      <span>Colegio</span>
-      <span>APDE El Roble</span>
+<div id="app">
+    
+    <header class="hero">
+        <div class="food-emojis-bg">🍎 🥐 🍇 🥖 🧀 🍷 🥗 🥘 🍰 ☕</div>
+        <div class="logo-container">
+            <svg class="logo-svg" viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 0 C20 0 10 20 10 20 L10 80 C10 100 50 120 50 120 C50 120 90 100 90 80 L90 20 C90 20 80 0 50 0 Z" fill="#1e2a3b"/>
+                <path d="M50 0 C20 0 10 20 10 20 L10 80 C10 100 50 120 50 120 L50 0 Z" fill="#7a1515"/>
+                <path d="M10 20 C30 20 50 0 50 0 L50 120 C50 120 10 100 10 80 Z" fill="none" stroke="#C9933A" stroke-width="2"/>
+                <line x1="15" y1="30" x2="45" y2="30" stroke="#fff" stroke-width="4"/>
+                <line x1="15" y1="45" x2="45" y2="45" stroke="#fff" stroke-width="4"/>
+                <line x1="15" y1="60" x2="45" y2="60" stroke="#fff" stroke-width="4"/>
+                <path d="M65 30 Q75 40 65 50 Q55 60 65 70" fill="none" stroke="#fff" stroke-width="4"/>
+            </svg>
+            <div class="logo-text">Colegio<br><b>APDE EL ROBLE</b></div>
+        </div>
+        <h1 class="hero-title">Nuestro <span>MENÚ</span> de Formación</h1>
+        <div class="hero-subtitle">Arma tu menú familiar paso a paso · RedFamilias 2025–2026</div>
+    </header>
+
+    <div class="progress-sticky">
+        <div class="progress-container">
+            <div class="progress-line"><div class="progress-line-fill" id="progress-fill"></div></div>
+            
+            <div class="step-indicator active" onclick="goToStep(1)" id="ind-1">
+                <div class="step-circle">📖</div>
+                <div class="step-label">Entradas</div>
+            </div>
+            <div class="step-indicator" onclick="goToStep(2)" id="ind-2">
+                <div class="step-circle">🍽️</div>
+                <div class="step-label">Platos</div>
+            </div>
+            <div class="step-indicator" onclick="goToStep(3)" id="ind-3">
+                <div class="step-circle">🍮</div>
+                <div class="step-label">Postres</div>
+            </div>
+            <div class="step-indicator" onclick="goToStep(4)" id="ind-4">
+                <div class="step-circle">☕</div>
+                <div class="step-label">Acomp.</div>
+            </div>
+        </div>
     </div>
-  </div>
 
-  <div class="header-title">
-    <span class="script">Nuestro</span>
-    <span class="main">Menú</span>
-    <span class="sub">de Formación Familiar</span>
-  </div>
+    <main>
+        <section id="step-1" class="step-content active">
+            <div class="vertical-text">MENÚ</div>
+            <h2 class="section-header">— ENTRADAS 📖 —</h2>
+            
+            <div class="menu-item" id="item-1">
+                <div class="item-photo">📚</div>
+                <div class="item-details">
+                    <div class="item-header">
+                        <span class="item-name">Books for Life</span>
+                        <div class="dotted-line"></div>
+                        <span class="item-freq">Todo el año</span>
+                    </div>
+                    <div class="item-desc">Una biblioteca circulante de libros best seller de formación familiar. Familias que leen juntas, crecen juntas.</div>
+                    <span class="item-expand" onclick="toggleDetails('det-1')">Ver detalles</span>
+                    <div class="item-extra-info" id="det-1">
+                        <b>Libros:</b> 12 estrategias para lidiar con las pantallas, El colapso de la autoridad, La generación ansiosa, La familia imperfecta, Héroe, Padres fuertes hijas felices, Los 5 lenguajes del amor.
+                    </div>
+                    <button class="btn-add" onclick="toggleCart(1, 'Books for Life', 'Entrada', '📚', this)">
+                        <span class="icon">+</span> Agregar
+                    </button>
+                </div>
+            </div>
 
-  <div class="red-badge">
-    RedFamilias<br>2025 · 2026
-  </div>
-</header>
+            <div class="divider">◈ ◈ ◈</div>
 
-<!-- TAGLINE -->
-<div class="tagline">
-  <p>Un menú donde tú eliges, tú te organizas con otras familias, participas, piensas, concretas y creces. Con la ayuda de la RedFamilias del Colegio APDE El Roble.</p>
+            <div class="menu-item" id="item-2">
+                <div class="item-photo">🏫</div>
+                <div class="item-details">
+                    <div class="item-header">
+                        <span class="item-name">Aulas Perm. DAIP</span>
+                        <div class="dotted-line"></div>
+                        <span class="item-freq">3 veces al año</span>
+                    </div>
+                    <div class="item-desc">Talleres y charlas por grados según el programa DAIP. Virtudes, Temas de actualidad, Prioridades formativas.</div>
+                    <span class="item-expand" onclick="toggleDetails('det-2')">Ver detalles</span>
+                    <div class="item-extra-info" id="det-2">
+                        <b>Horarios:</b> 7:00 hrs y 18:00 hrs.<br>
+                        <b>Meses:</b> Marzo, Mayo y Agosto.
+                    </div>
+                    <button class="btn-add" onclick="toggleCart(2, 'Aulas Permanentes DAIP', 'Entrada', '🏫', this)">
+                        <span class="icon">+</span> Agregar
+                    </button>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn-primary" onclick="goToStep(2)">Continuar a Platos Fuertes →</button>
+                <button class="btn-skip" onclick="goToStep(2)">Saltar esta sección →</button>
+            </div>
+
+            <div class="footer-cards">
+                <div class="footer-card">
+                    <span>🌐</span>
+                    www.ceroble.edu.gt
+                </div>
+                <div class="footer-card">
+                    <span>📍</span>
+                    11 Av. sur final zona 11<br>INSCRÍBETE YA
+                </div>
+            </div>
+        </section>
+
+        <section id="step-2" class="step-content">
+            <div class="vertical-text">MENÚ</div>
+            <h2 class="section-header">— PLATOS FUERTES 🍽️ —</h2>
+
+            <div class="menu-item" id="item-3">
+                <div class="item-photo">🗣️</div>
+                <div class="item-details">
+                    <div class="item-header">
+                        <span class="item-name">Cursos ICEF</span>
+                        <div class="dotted-line"></div>
+                        <span class="item-freq">Marzo a Julio</span>
+                    </div>
+                    <div class="item-desc">Formación familiar con metodología del caso en grupos pequeños.</div>
+                    <span class="item-expand" onclick="toggleDetails('det-3')">Ver detalles</span>
+                    <div class="item-extra-info" id="det-3">
+                        <b>Cursos:</b> Relación matrimonial, Afectividad, Acompañamiento adolescentes.
+                    </div>
+                    <button class="btn-add" onclick="toggleCart(3, 'Cursos ICEF', 'Plato Fuerte', '🗣️', this)">
+                        <span class="icon">+</span> Agregar
+                    </button>
+                </div>
+            </div>
+
+            <div class="divider">◈ ◈ ◈</div>
+
+            <div class="menu-item" id="item-4">
+                <div class="item-photo">🎉</div>
+                <div class="item-details">
+                    <div class="item-header">
+                        <span class="item-name">Family Fest</span>
+                        <div class="dotted-line"></div>
+                        <span class="item-freq">Agosto</span>
+                    </div>
+                    <div class="item-desc">Conferencias, talleres, juegos y actividades en familia. ¡Expertos que te llenarán de entusiasmo!</div>
+                    <button class="btn-add" onclick="toggleCart(4, 'Family Fest', 'Plato Fuerte', '🎉', this)">
+                        <span class="icon">+</span> Agregar
+                    </button>
+                </div>
+            </div>
+
+            <div class="divider">◈ ◈ ◈</div>
+
+            <div class="menu-item" id="item-5">
+                <div class="item-photo">👨‍👩‍👦</div>
+                <div class="item-details">
+                    <div class="item-header">
+                        <span class="item-name">Be Intentional</span>
+                        <div class="dotted-line"></div>
+                        <span class="item-freq">Todo el año</span>
+                    </div>
+                    <div class="item-desc">Acompañamiento a la paternidad y maternidad. A cargo de Lic. Clarita de Rodriguez.</div>
+                    <button class="btn-add" onclick="toggleCart(5, 'Be Intentional', 'Plato Fuerte', '👨‍👩‍👦', this)">
+                        <span class="icon">+</span> Agregar
+                    </button>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn-primary" onclick="goToStep(3)">Continuar a Postres →</button>
+                <button class="btn-secondary" onclick="goToStep(1)">← Atrás</button>
+                <button class="btn-skip" onclick="goToStep(3)">Saltar esta sección →</button>
+            </div>
+        </section>
+
+        <section id="step-3" class="step-content">
+            <div class="vertical-text">MENÚ</div>
+            <h2 class="section-header">— POSTRES 🍮 —</h2>
+
+            <div class="menu-item" id="item-6">
+                <div class="item-photo">🤝</div>
+                <div class="item-details">
+                    <div class="item-header">
+                        <span class="item-name">Padre/Mom DAIP</span>
+                        <div class="dotted-line"></div>
+                        <span class="item-freq">Por grados</span>
+                    </div>
+                    <div class="item-desc">Convivencias orientadas al programa DAIP por RedFamilias.</div>
+                    <button class="btn-add" onclick="toggleCart(6, 'Padre / Mom DAIP', 'Postre', '🤝', this)">
+                        <span class="icon">+</span> Agregar
+                    </button>
+                </div>
+            </div>
+
+            <div class="divider">◈ ◈ ◈</div>
+
+            <div class="menu-item" id="item-7">
+                <div class="item-photo">🙏</div>
+                <div class="item-details">
+                    <div class="item-header">
+                        <span class="item-name">Retiros Mens.</span>
+                        <div class="dotted-line"></div>
+                        <span class="item-freq">1 vez al mes</span>
+                    </div>
+                    <div class="item-desc">Un momento para parar, pensar y rezar.</div>
+                    <button class="btn-add" onclick="toggleCart(7, 'Retiros Mensuales', 'Postre', '🙏', this)">
+                        <span class="icon">+</span> Agregar
+                    </button>
+                </div>
+            </div>
+
+            <div class="divider">◈ ◈ ◈</div>
+
+            <div class="menu-item" id="item-8">
+                <div class="item-photo">⭐</div>
+                <div class="item-details">
+                    <div class="item-header">
+                        <span class="item-name">Papá/Mamá a todo dar</span>
+                        <div class="dotted-line"></div>
+                        <span class="item-freq">Anual</span>
+                    </div>
+                    <div class="item-desc">Con invitados internacionales. ¡Sumamente refrescante!</div>
+                    <button class="btn-add" onclick="toggleCart(8, 'Papá/Mamá a todo dar', 'Postre', '⭐', this)">
+                        <span class="icon">+</span> Agregar
+                    </button>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn-primary" onclick="goToStep(4)">Continuar a Acompañamientos →</button>
+                <button class="btn-secondary" onclick="goToStep(2)">← Atrás</button>
+                <button class="btn-skip" onclick="goToStep(4)">Saltar esta sección →</button>
+            </div>
+        </section>
+
+        <section id="step-4" class="step-content">
+            <h2 class="section-header">— ACOMPAÑAMIENTOS ☕ —</h2>
+            
+            <div class="grid-container">
+                <div class="grid-card" id="item-9" onclick="toggleGridCart(9, 'Grupos de lectura', 'Acompañamiento', '📚', this)">
+                    <div class="grid-badge" id="badge-9">+</div>
+                    <div class="grid-emoji">📚</div>
+                    <div class="grid-title">Grupos de lectura</div>
+                </div>
+                <div class="grid-card" id="item-10" onclick="toggleGridCart(10, 'Podcast: Sé fuerte, sé Roble', 'Acompañamiento', '🎧', this)">
+                    <div class="grid-badge" id="badge-10">+</div>
+                    <div class="grid-emoji">🎧</div>
+                    <div class="grid-title">Podcast</div>
+                </div>
+                <div class="grid-card" id="item-11" onclick="toggleGridCart(11, 'Misa primeros viernes', 'Acompañamiento', '⛪', this)">
+                    <div class="grid-badge" id="badge-11">+</div>
+                    <div class="grid-emoji">⛪</div>
+                    <div class="grid-title">Misa mensual</div>
+                </div>
+                <div class="grid-card" id="item-12" onclick="toggleGridCart(12, 'Charlas breves', 'Acompañamiento', '💬', this)">
+                    <div class="grid-badge" id="badge-12">+</div>
+                    <div class="grid-emoji">💬</div>
+                    <div class="grid-title">Charlas breves</div>
+                </div>
+                <div class="grid-card full-width" id="item-13" onclick="toggleGridCart(13, 'Convivencias RedFamilias', 'Acompañamiento', '🤝', this)">
+                    <div class="grid-badge" id="badge-13">+</div>
+                    <div class="grid-emoji">🤝</div>
+                    <div class="grid-title">Convivencias RedFamilias</div>
+                </div>
+            </div>
+
+            <div class="nav-buttons">
+                <button class="btn-primary btn-checkout" onclick="openModal()">Ver mi pedido 🛒</button>
+                <button class="btn-secondary" onclick="goToStep(3)">← Atrás</button>
+            </div>
+        </section>
+    </main>
+
+    <div class="floating-bar" id="floating-bar" onclick="openModal()">
+        <div>
+            <span class="floating-badge" id="cart-count">0</span>
+            <span class="floating-text">Ver mi pedido</span>
+        </div>
+        <span style="font-size: 20px;">🛒</span>
+    </div>
+
+    <div class="modal-overlay" id="modal-overlay">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <div class="modal-handle" onclick="closeModal()"></div>
+            
+            <div id="form-view">
+                <h3 class="modal-title">Tu Menú Familiar</h3>
+                
+                <div class="cart-list" id="cart-list-container">
+                    </div>
+
+                <div class="form-group">
+                    <label class="form-label">Tu nombre completo *</label>
+                    <input type="text" id="user-name" class="form-input" placeholder="Ej. Juan Pérez" required>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Grado(s) de tu(s) hijo(s)</label>
+                    <input type="text" id="user-grades" class="form-input" placeholder="Ej. 3ro Primaria, 1ro Básico">
+                </div>
+
+                <button class="btn-submit" onclick="sendOrder()">
+                    📧 Enviar mi selección al colegio
+                </button>
+            </div>
+
+            <div id="success-view">
+                <div class="icon-success">✅</div>
+                <h2>¡Pedido preparado!</h2>
+                <p>Se abrirá tu aplicación de correo para enviar la solicitud a <b>ohhurtado@ceroble.edu.gt</b>.</p>
+                <button class="btn-submit" onclick="closeModal()" style="width: auto; padding: 10px 30px; margin: 0 auto;">¡Listo! 🎉</button>
+            </div>
+        </div>
+    </div>
+
 </div>
-
-<!-- TABS -->
-<div class="tabs-wrapper">
-  <button class="tab-btn active" onclick="showTab('entradas', this)">
-    <span class="emoji">📖</span> Entradas
-  </button>
-  <button class="tab-btn" onclick="showTab('platos', this)">
-    <span class="emoji">🍽️</span> Platos Fuertes
-  </button>
-  <button class="tab-btn" onclick="showTab('postres', this)">
-    <span class="emoji">🍮</span> Postres
-  </button>
-  <button class="tab-btn" onclick="showTab('bebidas', this)">
-    <span class="emoji">☕</span> Acompañamientos
-  </button>
-</div>
-
-<!-- CONTENT -->
-<div class="content">
-
-  <!-- ENTRADAS -->
-  <div id="entradas" class="section active">
-    <div class="section-header">
-      <div class="section-line"></div>
-      <h2 class="section-title">📖 Entradas</h2>
-      <div class="section-line right"></div>
-    </div>
-
-    <div class="menu-item">
-      <div class="item-header">
-        <div class="item-left">
-          <div class="item-name">Books for Life</div>
-          <div class="item-tagline">"Una biblioteca circulante de libros best seller de formación familiar para viralizar."</div>
-          <div class="item-dots">
-            <div class="item-dots-line"></div>
-            <span class="item-freq">Todo el año</span>
-          </div>
-        </div>
-        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
-      </div>
-      <div class="item-body">
-        <p>Grupos de familias se ayudan para avanzar en la lectura de grandes libros de formación familiar. Una biblioteca circulante donde todos aprendemos y crecemos juntos.</p>
-        <p><strong>Títulos disponibles:</strong></p>
-        <ul>
-          <li>12 estrategias para lidiar con las pantallas</li>
-          <li>El colapso de la autoridad</li>
-          <li>La generación ansiosa</li>
-          <li>La familia imperfecta</li>
-          <li>Héroe — sobre la paternidad</li>
-          <li>Padres fuertes, hijas felices</li>
-          <li>Los 5 lenguajes del amor</li>
-          <li>¡Y mucho más!</li>
-        </ul>
-        <span class="tag">📚 A tu ritmo</span>
-        <span class="tag">Grupos pequeños</span>
-      </div>
-    </div>
-
-    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
-
-    <div class="menu-item">
-      <div class="item-header">
-        <div class="item-left">
-          <div class="item-name">Aulas Permanentes DAIP</div>
-          <div class="item-tagline">"La entrada perfecta para abrir horizontes de formación según el programa DAIP."</div>
-          <div class="item-dots">
-            <div class="item-dots-line"></div>
-            <span class="item-freq">Marzo · Mayo · Agosto</span>
-          </div>
-        </div>
-        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
-      </div>
-      <div class="item-body">
-        <p>Talleres y charlas impartidas por profesores específicos, dirigidos a grupos de grados (Primaria baja, alta, Secundaria, Bachillerato).</p>
-        <p><strong>Horarios:</strong> Matutino 7:00 hrs · Vespertino 18:00 hrs</p>
-        <p><strong>Temas principales:</strong></p>
-        <ul>
-          <li>Virtudes</li>
-          <li>Temas de actualidad</li>
-          <li>Prioridades formativas</li>
-        </ul>
-        <span class="tag">3 veces al año</span>
-        <span class="tag">Por grados</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- PLATOS FUERTES -->
-  <div id="platos" class="section">
-    <div class="section-header">
-      <div class="section-line"></div>
-      <h2 class="section-title">🍽️ Platos Fuertes</h2>
-      <div class="section-line right"></div>
-    </div>
-
-    <div class="menu-item">
-      <div class="item-header">
-        <div class="item-left">
-          <div class="item-name">Cursos de ICEF</div>
-          <div class="item-tagline">"La actividad que más llena. Herramientas reales con metodología del caso en grupos pequeños."</div>
-          <div class="item-dots">
-            <div class="item-dots-line"></div>
-            <span class="item-freq">Marzo a Julio</span>
-          </div>
-        </div>
-        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
-      </div>
-      <div class="item-body">
-        <p>De la mano de la organización mundial de formación familiar <strong>IFFD</strong>, una serie de cursos que se desarrollan a lo largo de varios meses usando la metodología del caso en grupos pequeños de familias. Formación 100% práctica.</p>
-        <p><strong>Cursos 2026:</strong></p>
-        <ul>
-          <li>Mejora de la relación matrimonial</li>
-          <li>Afectividad y sexualidad en la pubertad</li>
-          <li>Acompañamiento a los adolescentes</li>
-        </ul>
-        <span class="tag">Varios meses</span>
-        <span class="tag">Grupos pequeños</span>
-        <span class="tag">100% práctico</span>
-      </div>
-    </div>
-
-    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
-
-    <div class="menu-item">
-      <div class="item-header">
-        <div class="item-left">
-          <div class="item-name">Inspirando Familias & Family Fest</div>
-          <div class="item-tagline">"Conferencias, talleres, juegos y actividades en familia. ¡No te lo puedes perder!"</div>
-          <div class="item-dots">
-            <div class="item-dots-line"></div>
-            <span class="item-freq">Agosto</span>
-          </div>
-        </div>
-        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
-      </div>
-      <div class="item-body">
-        <p>Unos días de conferencias y talleres, juegos y actividades en familia. Expertos que te llenarán de entusiasmo, motivación e ideas para seguir trabajando para el bien de tu familia y de todas las familias de Guatemala.</p>
-        <span class="tag">Evento anual</span>
-        <span class="tag">Toda la familia</span>
-      </div>
-    </div>
-
-    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
-
-    <div class="menu-item">
-      <div class="item-header">
-        <div class="item-left">
-          <div class="item-name">Be Intentional</div>
-          <div class="item-tagline">"Acompañamiento constante a la paternidad y maternidad. Claridad y asertividad para el día a día."</div>
-          <div class="item-dots">
-            <div class="item-dots-line"></div>
-            <span class="item-freq">Todo el año</span>
-          </div>
-        </div>
-        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
-      </div>
-      <div class="item-body">
-        <p>Curso de acompañamiento a la paternidad y la maternidad a cargo de la <strong>Lic. Clarita de Rodríguez</strong> y el equipo de formación del Colegio.</p>
-        <p>Una actividad constante que provee muchas herramientas para el día a día, con claridad y asertividad.</p>
-        <span class="tag">Actividad constante</span>
-        <span class="tag">Herramientas prácticas</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- POSTRES -->
-  <div id="postres" class="section">
-    <div class="section-header">
-      <div class="section-line"></div>
-      <h2 class="section-title">🍮 Postres</h2>
-      <div class="section-line right"></div>
-    </div>
-
-    <div class="menu-item">
-      <div class="item-header">
-        <div class="item-left">
-          <div class="item-name">Padre DAIP / Mom DAIP</div>
-          <div class="item-tagline">"Convivencias específicas orientadas al programa DAIP, organizadas por grados."</div>
-          <div class="item-dots">
-            <div class="item-dots-line"></div>
-            <span class="item-freq">Según calendario</span>
-          </div>
-        </div>
-        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
-      </div>
-      <div class="item-body">
-        <p>Convivencias específicas orientadas a temas de formación del programa DAIP. Se realizarán en algunos grados, según la organización de nuestra RedFamilias.</p>
-        <span class="tag">Por grados</span>
-        <span class="tag">RedFamilias</span>
-      </div>
-    </div>
-
-    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
-
-    <div class="menu-item">
-      <div class="item-header">
-        <div class="item-left">
-          <div class="item-name">Retiros Mensuales</div>
-          <div class="item-tagline">"Un momento para parar, pensar y rezar."</div>
-          <div class="item-dots">
-            <div class="item-dots-line"></div>
-            <span class="item-freq">1 vez al mes</span>
-          </div>
-        </div>
-        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
-      </div>
-      <div class="item-body">
-        <p>Evento recurrente para colaboradores y/o padres en varias sedes. Un espacio para pausar el ritmo acelerado del día a día y reconectar con lo que más importa.</p>
-        <span class="tag">Mensual</span>
-        <span class="tag">Varias sedes</span>
-      </div>
-    </div>
-
-    <div class="divider"><div class="divider-line"></div><div class="divider-diamond"></div><div class="divider-line"></div></div>
-
-    <div class="menu-item">
-      <div class="item-header">
-        <div class="item-left">
-          <div class="item-name">Papá a todo dar / Mamá a todo dar</div>
-          <div class="item-tagline">"Con invitados internacionales. ¡Convivencias sumamente refrescantes!"</div>
-          <div class="item-dots">
-            <div class="item-dots-line"></div>
-            <span class="item-freq">Anual</span>
-          </div>
-        </div>
-        <button class="item-toggle" onclick="toggleItem(this)">Ver más →</button>
-      </div>
-      <div class="item-body">
-        <p>Convivencias que se realizan cada año con invitados internacionales para promover una sana y responsable paternidad y maternidad. Temas 100% actuales y necesarios.</p>
-        <span class="tag">Invitados internacionales</span>
-        <span class="tag">Anual</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- ACOMPAÑAMIENTOS / BEBIDAS -->
-  <div id="bebidas" class="section">
-    <div class="section-header">
-      <div class="section-line"></div>
-      <h2 class="section-title">☕ Acompañamientos</h2>
-      <div class="section-line right"></div>
-    </div>
-
-    <div class="bebidas-grid">
-      <div class="bebida-card">
-        <div class="bebida-icon">🎧</div>
-        <div class="bebida-name">Podcast<br>"Sé fuerte, sé Roble"</div>
-        <div class="bebida-desc">Todas las intervenciones grabadas para escuchar donde quieras. ¡Ideal para el tráfico!</div>
-      </div>
-      <div class="bebida-card">
-        <div class="bebida-icon">📚</div>
-        <div class="bebida-name">Grupos de Lectura</div>
-        <div class="bebida-desc">Familias que avanzan juntas en los libros del menú de formación.</div>
-      </div>
-      <div class="bebida-card">
-        <div class="bebida-icon">⛪</div>
-        <div class="bebida-name">Misa de Primeros Viernes</div>
-        <div class="bebida-desc">Un momento de encuentro espiritual mensual para toda la comunidad.</div>
-      </div>
-      <div class="bebida-card">
-        <div class="bebida-icon">💬</div>
-        <div class="bebida-name">Charlas Breves</div>
-        <div class="bebida-desc">Pequeñas dosis de formación para el día a día familiar.</div>
-      </div>
-      <div class="bebida-card">
-        <div class="bebida-icon">🤝</div>
-        <div class="bebida-name">Convivencias RedFamilias</div>
-        <div class="bebida-desc">Familias que sirven, crecen y se acompañan mutuamente.</div>
-      </div>
-    </div>
-  </div>
-
-</div>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <div class="footer-card">
-    <div class="footer-icon">🌐</div>
-    <div class="footer-info">
-      <span class="footer-label">Sitio web</span>
-      <span class="footer-value">www.ceroble.edu.gt</span>
-    </div>
-  </div>
-  <div class="footer-card">
-    <div class="footer-icon">📍</div>
-    <div class="footer-info">
-      <span class="footer-label">Visítanos</span>
-      <span class="footer-value">11 Avenida sur final zona 11</span>
-    </div>
-  </div>
-</footer>
 
 <script>
-  function showTab(id, btn) {
-    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
-  }
+    let currentStep = 1;
+    let maxStepReached = 1;
+    let cart = [];
 
-  function toggleItem(btn) {
-    const body = btn.closest('.menu-item').querySelector('.item-body');
-    const isOpen = body.classList.contains('open');
-    body.classList.toggle('open');
-    btn.textContent = isOpen ? 'Ver más →' : 'Ver menos ↑';
-  }
+    function goToStep(step) {
+        if(step > maxStepReached && step > currentStep + 1) return; // Prevent skipping too far via top nav
+        
+        document.querySelectorAll('.step-content').forEach(el => el.classList.remove('active'));
+        document.getElementById('step-' + step).classList.add('active');
+        
+        currentStep = step;
+        if(step > maxStepReached) maxStepReached = step;
+        
+        updateProgressUI();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function updateProgressUI() {
+        const fill = document.getElementById('progress-fill');
+        fill.style.width = ((currentStep - 1) / 3) * 100 + '%';
+
+        for(let i = 1; i <= 4; i++) {
+            const ind = document.getElementById('ind-' + i);
+            ind.classList.remove('active', 'completed');
+            if(i < currentStep) {
+                ind.classList.add('completed');
+            } else if(i === currentStep) {
+                ind.classList.add('active');
+            }
+        }
+    }
+
+    function toggleDetails(id) {
+        const el = document.getElementById(id);
+        el.classList.toggle('visible');
+    }
+
+    function toggleCart(id, name, category, emoji, btnElement) {
+        const index = cart.findIndex(item => item.id === id);
+        const menuItem = document.getElementById('item-' + id);
+        
+        if (index > -1) {
+            cart.splice(index, 1);
+            btnElement.classList.remove('added');
+            btnElement.innerHTML = '<span class="icon">+</span> Agregar';
+            menuItem.classList.remove('in-cart');
+        } else {
+            cart.push({ id, name, category, emoji });
+            btnElement.classList.add('added');
+            btnElement.innerHTML = '<span class="icon">✓</span> Agregado';
+            menuItem.classList.add('in-cart');
+        }
+        updateFloatingBar();
+    }
+
+    function toggleGridCart(id, name, category, emoji, cardElement) {
+        const index = cart.findIndex(item => item.id === id);
+        const badge = document.getElementById('badge-' + id);
+        
+        if (index > -1) {
+            cart.splice(index, 1);
+            cardElement.classList.remove('in-cart');
+            badge.innerText = '+';
+        } else {
+            cart.push({ id, name, category, emoji });
+            cardElement.classList.add('in-cart');
+            badge.innerText = '✓';
+        }
+        updateFloatingBar();
+    }
+
+    function removeFromCart(id) {
+        // Find if it's a list item or grid item
+        const btn = document.querySelector(`#item-${id} .btn-add`);
+        if(btn) {
+            toggleCart(id, '', '', '', btn);
+        } else {
+            const card = document.getElementById(`item-${id}`);
+            if(card) toggleGridCart(id, '', '', '', card);
+        }
+        renderCartList();
+    }
+
+    function updateFloatingBar() {
+        const bar = document.getElementById('floating-bar');
+        const count = document.getElementById('cart-count');
+        count.innerText = cart.length;
+        
+        if(cart.length > 0 && currentStep < 4) {
+            bar.classList.add('visible');
+        } else {
+            bar.classList.remove('visible');
+        }
+    }
+
+    // Update floating bar visibility if navigating to step 4
+    const originalGoToStep = goToStep;
+    goToStep = function(step) {
+        originalGoToStep(step);
+        updateFloatingBar();
+    }
+
+    function openModal() {
+        if(cart.length === 0) {
+            alert("Aún no has seleccionado ninguna actividad.");
+            return;
+        }
+        document.getElementById('form-view').style.display = 'block';
+        document.getElementById('success-view').style.display = 'none';
+        document.getElementById('modal-overlay').classList.add('active');
+        renderCartList();
+    }
+
+    function closeModal() {
+        document.getElementById('modal-overlay').classList.remove('active');
+    }
+
+    document.getElementById('modal-overlay').addEventListener('click', function(e) {
+        if(e.target === this) closeModal();
+    });
+
+    function renderCartList() {
+        const container = document.getElementById('cart-list-container');
+        if(cart.length === 0) {
+            container.innerHTML = '<p style="text-align:center; color:#888; font-size:14px;">El carrito está vacío.</p>';
+            setTimeout(closeModal, 1000);
+            return;
+        }
+
+        container.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                <div class="cart-item-emoji">${item.emoji}</div>
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-cat">${item.category}</div>
+                </div>
+                <button class="cart-item-remove" onclick="removeFromCart(${item.id})">✕</button>
+            </div>
+        `).join('');
+    }
+
+    function sendOrder() {
+        const name = document.getElementById('user-name').value.trim();
+        const grades = document.getElementById('user-grades').value.trim();
+
+        if(!name) {
+            alert('Por favor ingresa tu nombre completo.');
+            return;
+        }
+
+        let bodyText = `Hola, envío mi selección para el Menú de Formación Familiar:\n\n`;
+        bodyText += `Nombre: ${name}\n`;
+        if(grades) bodyText += `Grados: ${grades}\n`;
+        bodyText += `\n--- MI SELECCIÓN ---\n`;
+        
+        cart.forEach(item => {
+            bodyText += `• ${item.name} (${item.category})\n`;
+        });
+        
+        bodyText += `\nGracias.`;
+
+        const subject = encodeURIComponent(`Menú de Formación — Inscripción de ${name}`);
+        const body = encodeURIComponent(bodyText);
+        
+        window.location.href = `mailto:ohhurtado@ceroble.edu.gt?subject=${subject}&body=${body}`;
+
+        // Show success screen
+        document.getElementById('form-view').style.display = 'none';
+        document.getElementById('success-view').style.display = 'block';
+    }
+
 </script>
 </body>
 </html>
